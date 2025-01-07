@@ -10,9 +10,9 @@ The Real-Time Audio Intelligence with Subtitle Overlay and PDF Summarization pro
 # Key Features
 Users can select their preferred audio input source, including:
 
-Microphone Input: Record audio directly using the system's microphone.
+**Microphone Input**: Record audio directly using the system's microphone.
 
-Uploaded Audio Files: Users can upload pre-recorded audio files in formats like .mp3, .wav, or .aac.
+**Uploaded Audio Files**: Users can upload pre-recorded audio files in formats like .mp3, .wav, or .aac.
 
 ![Screenshot 2024-12-04 102106](https://github.com/user-attachments/assets/40eafcdb-b203-4d69-ae4a-fd5bf84ca24e)
 
@@ -25,10 +25,10 @@ The transcribed text is displayed as subtitles for live or recorded audio stream
 # Customizable PDF Summarization based on user preference: 
 Meeting Audio: Creates a conversational PDF outlining person-to-person communication with speaker attribution.
 
-Speech Audio: Summarizes the speech into bullet points highlighting key messages.
+**Speech Audio**: Summarizes the speech into bullet points highlighting key messages.
 
-Educational Audio: Generates detailed class notes with headings and structured content.
+**Educational Audio**: Generates detailed class notes with headings and structured content.
 
-Custom Prompt: Allows users to define their own format or style for tailored PDF outputs.
+**Custom Prompt**: Allows users to define their own format or style for tailored PDF outputs.
 
 ![Screenshot 2024-12-04 102038](https://github.com/user-attachments/assets/ad4acfa6-21cd-49a0-aeac-964899d750ce)
