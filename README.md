@@ -9,8 +9,11 @@ The Real-Time Audio Intelligence with Subtitle Overlay and PDF Summarization pro
 
 # Key Features
 Users can select their preferred audio input source, including:
+
 Microphone Input: Record audio directly using the system's microphone.
+
 Uploaded Audio Files: Users can upload pre-recorded audio files in formats like .mp3, .wav, or .aac.
+
 ![Screenshot 2024-12-04 102106](https://github.com/user-attachments/assets/40eafcdb-b203-4d69-ae4a-fd5bf84ca24e)
 
 
