@@ -1,6 +1,6 @@
 # Real-Time-Audio-Intelligence-with-Subtitle-Overlay-and-PDF-Summarization
 
-# Skills: Python , LLM, NLP, GenAI, PDF reporting.
+# Skills: Python , LLM, NLP, GenAI, PDF Reporting.
 
 # Introduction 
 
