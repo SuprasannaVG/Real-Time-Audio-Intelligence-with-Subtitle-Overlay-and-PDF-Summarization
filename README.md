@@ -1,5 +1,7 @@
 # Real-Time-Audio-Intelligence-with-Subtitle-Overlay-and-PDF-Summarization
 
+# Published Research Paper On  International Journal of Innovative Science and Research Technology (ISSN No:-2456-2165 ) On December 2024.
+
 # Skills: Python , LLM, NLP, GenAI, PDF Reporting.
 
 # Introduction 
