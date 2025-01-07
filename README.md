@@ -47,3 +47,16 @@ The transcribed text is displayed as subtitles for live or recorded audio stream
 **PDF Generated For Educational Audio**
 
 ![Screenshot 2024-12-09 212557](https://github.com/user-attachments/assets/871e830f-fa0f-47bb-bc6a-8b84ebceac64)
+
+
+# Applications
+
+**Education:** Helps students transcribe lectures and create structured, detailed class notes.
+
+**Corporate Meetings:** Generates actionable meeting minutes with clear speaker attributions.
+
+**Content Creation:** Assists creators in generating subtitles and summaries for podcasts and videos.
+
+**Event Documentation:** Summarizes speeches and public addresses into concise PDF formats.
+
+**Personal Use:** Records and archives personal audio memos with customizable transcription options.
