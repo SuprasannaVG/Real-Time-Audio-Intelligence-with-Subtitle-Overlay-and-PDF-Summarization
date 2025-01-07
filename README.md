@@ -32,3 +32,12 @@ The transcribed text is displayed as subtitles for live or recorded audio stream
 **Custom Prompt**: Allows users to define their own format or style for tailored PDF outputs.
 
 ![Screenshot 2024-12-04 102038](https://github.com/user-attachments/assets/ad4acfa6-21cd-49a0-aeac-964899d750ce)
+
+# Output:
+**PDF Generated For Meeting Audio**
+
+![Screenshot 2024-12-04 102240](https://github.com/user-attachments/assets/266e67a8-3d32-43b4-b9de-ba77e0cec349)
+
+**PDF Generated For Educational Audio**
+
+![Screenshot 2024-12-09 212557](https://github.com/user-attachments/assets/871e830f-fa0f-47bb-bc6a-8b84ebceac64)
