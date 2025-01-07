@@ -15,8 +15,8 @@ Users can select their preferred audio input source, including:
 
 
 
+![Screenshot 2024-12-04 102013](https://github.com/user-attachments/assets/39702b86-1ce6-4567-b9a9-d827de0fce3b)
 
-![Screenshot 2024-12-04 102106](https://github.com/user-attachments/assets/40eafcdb-b203-4d69-ae4a-fd5bf84ca24e)
 
 
 # Real-Time Processing:
@@ -33,9 +33,11 @@ The transcribed text is displayed as subtitles for live or recorded audio stream
 
 **Custom Prompt**: Allows users to define their own format or style for tailored PDF outputs.
 
+![Screenshot 2024-12-04 102106](https://github.com/user-attachments/assets/40eafcdb-b203-4d69-ae4a-fd5bf84ca24e)
+
 ![Screenshot 2024-12-04 102038](https://github.com/user-attachments/assets/ad4acfa6-21cd-49a0-aeac-964899d750ce)
 
-![Screenshot 2024-12-04 102013](https://github.com/user-attachments/assets/39702b86-1ce6-4567-b9a9-d827de0fce3b)
+
 
 # Output:
 **PDF Generated For Meeting Audio**
