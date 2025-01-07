@@ -23,7 +23,7 @@ The project employs real-time audio processing to transcribe spoken words into t
 The transcribed text is displayed as subtitles for live or recorded audio streams.
 
 # Customizable PDF Summarization based on user preference: 
-Meeting Audio: Creates a conversational PDF outlining person-to-person communication with speaker attribution.
+**Meeting Audio**: Creates a conversational PDF outlining person-to-person communication with speaker attribution.
 
 **Speech Audio**: Summarizes the speech into bullet points highlighting key messages.
 
