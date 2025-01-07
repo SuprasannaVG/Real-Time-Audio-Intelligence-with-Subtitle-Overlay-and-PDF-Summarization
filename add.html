@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Addition</title>
+</head>
+<body>
+    <h1>Addition</h1>
+    
+    <form method="POST">
+        <input type="text" name="num1" placeholder="Enter first number">
+        <input type="text" name="num2" placeholder="Enter second number">
+        <button type="submit">Add</button>
+    </form>
+
+    {% if result is not none %}
+        <h2>Result: {{ result }}</h2>
+    {% endif %}
+
+    {% if error %}
+        <h3 style="color: red;">{{ error }}</h3>
+    {% endif %}
+
+    <br><br>
+    <a href="/">Back to Home</a>
+</body>
+</html>

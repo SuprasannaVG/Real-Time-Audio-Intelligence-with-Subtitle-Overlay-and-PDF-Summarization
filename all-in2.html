@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Audio to PDF Generator</title>
+    <style>
+        /* General Layout */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f7f6;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        /* Container */
+        .container {
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            max-width: 600px;
+            text-align: center;
+        }
+
+        /* Headings */
+        h1 {
+            font-size: 24px;
+            color: #333;
+        }
+
+        h2 {
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: #444;
+        }
+
+        /* Textarea */
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        /* Buttons */
+        .submit-btn {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .submit-btn:hover {
+            background-color: #45a049;
+        }
+
+        /* File Input */
+        input[type="file"] {
+            padding: 10px;
+            margin: 10px 0;
+        }
+
+        /* Error Message */
+        #error-message {
+            margin-top: 20px;
+            color: red;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Audio to PDF Generator</h1>
+
+        <!-- Text Input Section -->
+        <div class="input-section">
+            <h2>Enter Text or Upload Audio</h2>
+            <form id="inputForm" action="/process_text" method="POST">
+                <label for="input_text">Input Text:</label>
+                <textarea id="input_text" name="input_text" rows="6" placeholder="Enter or paste text here..."></textarea>
+                <button type="submit" class="submit-btn">Generate PDF from Text</button>
+            </form>
+        </div>
+
+        <!-- Audio Upload Section -->
+        <div class="audio-upload-section">
+            <h2>Or Upload an Audio File</h2>
+            <form id="audioForm" action="/upload" method="POST" enctype="multipart/form-data">
+                <input type="file" name="file" accept="audio/*" required>
+                <button type="submit" class="submit-btn">Upload Audio</button>
+            </form>
+        </div>
+
+        <!-- Microphone Recording Section -->
+        <div class="microphone-section">
+            <h2>Or Record Audio from Microphone</h2>
+            <button id="record-btn" class="submit-btn">Start Recording</button>
+            <button id="stop-btn" class="submit-btn" style="display: none;">Stop Recording</button>
+            <form id="microphoneForm" action="/upload" method="POST" enctype="multipart/form-data" style="display: none;">
+                <input type="hidden" id="audioBlob" name="audioBlob">
+                <button type="submit" class="submit-btn">Generate PDF from Recorded Audio</button>
+            </form>
+        </div>
+
+        <div id="error-message"></div>
+    </div>
+
+    <script>
+        let mediaRecorder;
+        let audioChunks = [];
+
+        document.getElementById("record-btn").addEventListener("click", async function() {
+            audioChunks = [];
+            const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+            mediaRecorder = new MediaRecorder(stream);
+            mediaRecorder.start();
+
+            document.getElementById("record-btn").style.display = "none";
+            document.getElementById("stop-btn").style.display = "inline-block";
+
+            mediaRecorder.addEventListener("dataavailable", event => {
+                audioChunks.push(event.data);
+            });
+        });
+
+        document.getElementById("stop-btn").addEventListener("click", function() {
+            mediaRecorder.stop();
+
+            document.getElementById("record-btn").style.display = "inline-block";
+            document.getElementById("stop-btn").style.display = "none";
+
+            mediaRecorder.addEventListener("stop", async () => {
+                const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
+                const formData = new FormData();
+                formData.append("file", audioBlob, "recorded_audio.wav");
+
+                document.getElementById("microphoneForm").style.display = "block";
+
+                const inputBlob = document.getElementById("audioBlob");
+                inputBlob.value = URL.createObjectURL(audioBlob);
+
+                // Trigger the form submission for recorded audio
+                const response = await fetch("/upload", {
+                    method: "POST",
+                    body: formData,
+                });
+
+                if (!response.ok) {
+                    document.getElementById("error-message").innerText = "Failed to process recorded audio.";
+                }
+            });
+        });
+
+        // Audio Form Validation
+        document.getElementById("audioForm").addEventListener("submit", function(event) {
+            var fileInput = document.getElementById("audioForm").querySelector("input[type='file']");
+            if (fileInput.files.length === 0) {
+                event.preventDefault();
+                document.getElementById("error-message").innerText = "Please select an audio file to upload.";
+            }
+        });
+
+        // Text Input Form Validation
+        document.getElementById("inputForm").addEventListener("submit", function(event) {
+            var textInput = document.getElementById("input_text").value.trim();
+            if (textInput === "") {
+                event.preventDefault();
+                document.getElementById("error-message").innerText = "Please enter text to generate the PDF.";
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,462 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Audio to PDF Generator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f4f8;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      background-color: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+      width: 400px;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+
+    button {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+      margin: 10px;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    button:disabled {
+      background-color: #cccccc;
+      cursor: not-allowed;
+    }
+
+    #transcription-box {
+      width: 100%;
+      height: 150px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      padding: 10px;
+      margin-top: 20px;
+      background-color: #f9f9f9;
+      overflow-y: auto;
+    }
+
+    .audio-option {
+      display: inline-block;
+      width: 120px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      margin: 5px;
+      cursor: pointer;
+      background-color: #f9f9f9;
+      text-align: center;
+      transition: background-color 0.3s;
+    }
+
+    .audio-option:hover {
+      background-color: #e0e0e0;
+    }
+
+    .audio-option.selected {
+      background-color: #007bff;
+      color: white;
+    }
+
+    textarea {
+      width: 100%;
+      padding: 10px;
+      font-size: 14px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      margin-top: 10px;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Audio to PDF Generator</h1>
+    <button id="start-recording">Start Recording</button>
+    <button id="stop-recording" class="hidden">Stop Recording</button>
+
+    <div id="transcription-box">Transcription will appear here...</div>
+
+    <form id="processTextForm" action="/process_text" method="POST">
+      <textarea id="input-text" name="input_text" rows="6" readonly></textarea>
+
+      <div class="audio-option" data-type="meeting">Meeting</div>
+      <div class="audio-option" data-type="education">Education</div>
+      <div class="audio-option" data-type="speech">Speech</div>
+      <div class="audio-option" data-type="custom">Advanced Options</div>
+
+      <textarea id="custom-prompt" name="custom_prompt" rows="4" placeholder="Enter custom prompt for your audio..."></textarea>
+
+      <input type="hidden" id="audio-type" name="audio_type">
+
+      <button type="submit" id="generate-pdf">Generate PDF</button>
+    </form>
+  </div>
+
+  <script>
+    let recognition;
+    let isRecording = false;
+    let finalTranscript = '';
+    const startButton = document.getElementById('start-recording');
+    const stopButton = document.getElementById('stop-recording');
+    const transcriptionBox = document.getElementById('transcription-box');
+    const inputTextArea = document.getElementById('input-text');
+    const audioTypeInput = document.getElementById('audio-type');
+    const customPromptTextArea = document.getElementById('custom-prompt');
+
+    if ('webkitSpeechRecognition' in window) {
+      recognition = new webkitSpeechRecognition();
+      recognition.continuous = true;
+      recognition.interimResults = true;
+      recognition.lang = 'en-US';
+
+      recognition.onstart = () => {
+        transcriptionBox.innerHTML = "Listening...";
+        transcriptionBox.style.color = "green";
+      };
+
+      recognition.onresult = (event) => {
+        let interimTranscript = '';
+        for (let i = event.resultIndex; i < event.results.length; i++) {
+          const transcript = event.results[i][0].transcript;
+          if (event.results[i].isFinal) {
+            finalTranscript += transcript + ' ';
+          } else {
+            interimTranscript += transcript;
+          }
+        }
+        transcriptionBox.innerHTML = finalTranscript + '<span style="color: #999;">' + interimTranscript + '</span>';
+        inputTextArea.value = finalTranscript;
+      };
+
+      recognition.onerror = (event) => {
+        console.error('Speech recognition error:', event.error);
+        transcriptionBox.innerHTML = "Error occurred: " + event.error;
+        transcriptionBox.style.color = "red";
+      };
+
+      recognition.onend = () => {
+        transcriptionBox.innerHTML = finalTranscript || "No text recorded.";
+        transcriptionBox.style.color = "black";
+      };
+    } else {
+      alert('Your browser does not support speech recognition.');
+    }
+
+    startButton.addEventListener('click', () => {
+      if (!isRecording) {
+        finalTranscript = '';
+        recognition.start();
+        isRecording = true;
+        startButton.classList.add('hidden');
+        stopButton.classList.remove('hidden');
+      }
+    });
+
+    stopButton.addEventListener('click', () => {
+      if (isRecording) {
+        recognition.stop();
+        isRecording = false;
+        startButton.classList.remove('hidden');
+        stopButton.classList.add('hidden');
+      }
+    });
+
+    const audioOptions = document.querySelectorAll('.audio-option');
+    audioOptions.forEach(option => {
+      option.addEventListener('click', () => {
+        audioOptions.forEach(opt => opt.classList.remove('selected'));
+        option.classList.add('selected');
+
+        audioTypeInput.value = option.dataset.type;
+        customPromptTextArea.style.display = option.dataset.type === 'custom' ? 'block' : 'none';
+      });
+    });
+  </script>
+</body>
+</html> -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Audio to PDF Generator</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #e8f0f2;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      background-color: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      width: 700px;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+
+    .container:hover {
+      transform: scale(1.05);
+    }
+
+    h1 {
+      font-size: 28px;
+      margin-bottom: 20px;
+      color: #007bff;
+    }
+
+    button {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 12px 25px;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      margin: 10px;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    button:disabled {
+      background-color: #cccccc;
+      cursor: not-allowed;
+    }
+
+    #transcription-box {
+      width: 100%;
+      height: 150px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      padding: 12px;
+      margin-top: 20px;
+      background-color: #f9f9f9;
+      overflow-y: auto;
+      font-size: 14px;
+      color: #333;
+    }
+
+    .audio-options {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px;
+      margin-bottom: 20px;
+    }
+
+    .audio-option {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 80px;
+      padding: 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      background-color: #f0f4f8;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+    }
+
+    .audio-option img {
+      width: 70px;
+      height: 70px;
+      margin-bottom: 10px;
+      object-fit: cover;
+      border-radius: 0%;
+    }
+
+    .audio-option:hover {
+      background-color: #d4e1f1;
+      transform: translateY(-3px);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    .audio-option.selected {
+      background-color: #007bff;
+      color: white;
+    }
+
+    .audio-option.selected img {
+      border: 2px solid white;
+    }
+
+    .audio-option.selected:hover {
+      background-color: #0056b3;
+    }
+
+    textarea {
+      width: 100%;
+      padding: 10px;
+      font-size: 14px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      margin-top: 10px;
+      display: none;
+    }
+
+    #generate-pdf {
+      background-color: #28a745;
+    }
+
+    #generate-pdf:hover {
+      background-color: #218838;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Audio to PDF Generator</h1>
+    <button id="start-recording">Start Recording</button>
+    <button id="stop-recording" class="hidden">Stop Recording</button>
+
+    <div id="transcription-box">Transcription will appear here...</div>
+
+    <form id="processTextForm" action="/process_text" method="POST">
+      <textarea id="input-text" name="input_text" rows="6" readonly></textarea>
+
+      <div class="audio-options">
+        <div class="audio-option" data-type="meeting">
+          <img src="../static/images/meet.jpeg" alt="Meeting">
+          Meeting
+        </div>
+        <div class="audio-option" data-type="education">
+          <img src="../static/images/edu1.png" alt="Education">
+          Education
+        </div>
+        <div class="audio-option" data-type="speech">
+          <img src="../static/images/speech.jpg" alt="Speech">
+          Speech
+        </div>
+        <div class="audio-option" data-type="custom">
+          <img src="../static/images/prompt.jpg" alt="Advanced">
+          <span>Enter Custom Prompt</span>
+        </div>
+      </div>
+
+      <textarea id="custom-prompt" name="custom_prompt" rows="4" placeholder="Enter custom prompt for your audio..."></textarea>
+
+      <input type="hidden" id="audio-type" name="audio_type">
+
+      <button type="submit" id="generate-pdf">Generate PDF</button>
+    </form>
+  </div>
+
+  <script>
+    let recognition;
+    let isRecording = false;
+    let finalTranscript = '';
+    const startButton = document.getElementById('start-recording');
+    const stopButton = document.getElementById('stop-recording');
+    const transcriptionBox = document.getElementById('transcription-box');
+    const inputTextArea = document.getElementById('input-text');
+    const audioTypeInput = document.getElementById('audio-type');
+    const customPromptTextArea = document.getElementById('custom-prompt');
+
+    if ('webkitSpeechRecognition' in window) {
+      recognition = new webkitSpeechRecognition();
+      recognition.continuous = true;
+      recognition.interimResults = true;
+      recognition.lang = 'en-US';
+
+      recognition.onstart = () => {
+        transcriptionBox.innerHTML = "Listening...";
+        transcriptionBox.style.color = "green";
+      };
+
+      recognition.onresult = (event) => {
+        let interimTranscript = '';
+        for (let i = event.resultIndex; i < event.results.length; i++) {
+          const transcript = event.results[i][0].transcript;
+          if (event.results[i].isFinal) {
+            finalTranscript += transcript + ' ';
+          } else {
+            interimTranscript += transcript;
+          }
+        }
+        transcriptionBox.innerHTML = finalTranscript + '<span style="color: #999;">' + interimTranscript + '</span>';
+        inputTextArea.value = finalTranscript;
+      };
+
+      recognition.onerror = (event) => {
+        console.error('Speech recognition error:', event.error);
+        transcriptionBox.innerHTML = "Error occurred: " + event.error;
+        transcriptionBox.style.color = "red";
+      };
+
+      recognition.onend = () => {
+        transcriptionBox.innerHTML = finalTranscript || "No text recorded.";
+        transcriptionBox.style.color = "black";
+      };
+    } else {
+      alert('Your browser does not support speech recognition.');
+    }
+
+    startButton.addEventListener('click', () => {
+      if (!isRecording) {
+        finalTranscript = '';
+        recognition.start();
+        isRecording = true;
+        startButton.classList.add('hidden');
+        stopButton.classList.remove('hidden');
+      }
+    });
+
+    stopButton.addEventListener('click', () => {
+      if (isRecording) {
+        recognition.stop();
+        isRecording = false;
+        startButton.classList.remove('hidden');
+        stopButton.classList.add('hidden');
+      }
+    });
+
+    const audioOptions = document.querySelectorAll('.audio-option');
+    audioOptions.forEach(option => {
+      option.addEventListener('click', () => {
+        audioOptions.forEach(opt => opt.classList.remove('selected'));
+        option.classList.add('selected');
+
+        audioTypeInput.value = option.dataset.type;
+        customPromptTextArea.style.display = option.dataset.type === 'custom' ? 'block' : 'none';
+      });
+    });
+  </script>
+</body>
+</html>
+
