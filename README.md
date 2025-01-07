@@ -27,4 +27,5 @@ Speech Audio: Summarizes the speech into bullet points highlighting key messages
 Educational Audio: Generates detailed class notes with headings and structured content.
 
 Custom Prompt: Allows users to define their own format or style for tailored PDF outputs.
+
 ![Screenshot 2024-12-04 102038](https://github.com/user-attachments/assets/ad4acfa6-21cd-49a0-aeac-964899d750ce)
