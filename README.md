@@ -4,7 +4,7 @@
 
 # Introduction 
 
-The Real-Time Audio Intelligence with Subtitle Overlay and PDF Summarization project is an advanced system designed to process audio input and provide meaningful insights in real time. This project integrates audio-to-text transcription, subtitle overlay, and automated PDF summarization, offering users a versatile tool for recording, transcribing, and summarizing audio data.
+The Real-Time Audio Intelligence with Subtitle Overlay and PDF Summarization project is an advanced system designed to process audio input and provide meaningful insights in real time. This project integrates audio-to-text transcription, subtitle overlay, and automated PDF summarization based on the user preference, offering users a versatile tool for recording, transcribing, and summarizing audio data.
 
 # Key Features
 Users can select their preferred audio input source, including:
